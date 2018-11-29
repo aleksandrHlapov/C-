@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 
@@ -12,14 +11,14 @@ namespace PiCalculation
 	/// <summary>
 	/// Compute pi digits using spigot algorithm, Gosper's formula
 	/// </summary>
-	class PiCalculation
+	internal class PiCalculation
 	{
 		private static ulong[] numerators;
 		private static ulong[] denominators;
 		private static ulong[] remainders;
 		private static ulong[] carriedOver;
 
-		static void Main()
+		private static void Main()
 		{
 			Console.WriteLine(CalculatePi(requestNumberOfPiDigits()));
 			Console.ReadKey();
@@ -40,7 +39,7 @@ namespace PiCalculation
 			uint requestedNumberOfDigits = 0;
 			bool isInputPositiveInteger = uint.TryParse(Console.ReadLine(), out requestedNumberOfDigits);
 
-			if(!isInputPositiveInteger || 0 == requestedNumberOfDigits)
+			if (!isInputPositiveInteger || 0 == requestedNumberOfDigits)
 			{
 				System.Environment.Exit(0);
 			}
@@ -60,7 +59,7 @@ namespace PiCalculation
 
 			//using this approach i will use same number of boxes for each pi digit. Simple but slow approach.
 			//If i need 100 digits – going to use 91 box. Which is huge overkill to calculate, for example, 10th digit which require only 10 boxes
-			uint boxesNumber = calculateBoxesNumber(requestedPiDigitsNumber); 
+			uint boxesNumber = calculateBoxesNumber(requestedPiDigitsNumber);
 
 			numerators = bakeNumeratorsArray(boxesNumber);
 			denominators = bakeDenominatorsArray(boxesNumber);
@@ -155,7 +154,7 @@ namespace PiCalculation
 			string decimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
 			string pi = rawPi.ToString();
 
-			if(rawPi > 3)
+			if (rawPi > 3)
 			{
 				pi = pi.Insert(1, decimalSeparator);
 			}
